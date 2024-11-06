@@ -54,6 +54,7 @@ _COLOR_FORMATS = [
 # CLI flags override config file (which overrides default FontConfig).
 flags.DEFINE_integer("upem", None, "Units per em.")
 flags.DEFINE_integer("width", None, "Width.")
+flags.DEFINE_integer("space_width", None, "Space Width.")
 flags.DEFINE_integer("ascender", None, "Ascender")
 flags.DEFINE_integer("descender", None, "Descender.")
 flags.DEFINE_integer("linegap", None, "Line gap.")
@@ -152,6 +153,7 @@ class FontConfig(NamedTuple):
     # metrics default based on Noto Emoji
     upem: int = 1024
     width: int = 1275
+    space_width: int = 0
     ascender: int = 950
     descender: int = -250
     linegap: int = 0
@@ -254,6 +256,7 @@ def write(dest: Path, config: FontConfig):
         "color_format": config.color_format,
         "upem": config.upem,
         "width": config.width,
+        "space_width": config.space_width,
         "ascender": config.ascender,
         "descender": config.descender,
         "linegap": config.linegap,
@@ -339,6 +342,7 @@ def load(
     color_format = _pop_flag(config, "color_format")
     upem = int(_pop_flag(config, "upem"))
     width = int(_pop_flag(config, "width"))
+    space_width = int(_pop_flag(config, "space_width"))
     ascender = int(_pop_flag(config, "ascender"))
     descender = int(_pop_flag(config, "descender"))
     linegap = int(_pop_flag(config, "linegap"))
@@ -424,6 +428,7 @@ def load(
         color_format=color_format,
         upem=upem,
         width=width,
+        space_width=width if space_width == 0 else space_width,
         ascender=ascender,
         descender=descender,
         linegap=linegap,
