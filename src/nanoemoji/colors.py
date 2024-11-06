@@ -253,9 +253,11 @@ class Color(Sequence):
             values = [v for v in ss.split("," if "," in ss else " ") if v]
             if len(values) != 3:
                 raise ValueError(f"expected 3 rgb() values, found {len(values)}: {s!r}")
+            # convert percent values
+            values = [float(v.replace("%", "e-2")) * 255 if v.endswith("%") else float(v) for v in values]
             # round floats and clamp to [0..255] range
             red, green, blue = (
-                max(0, min(255, i)) for i in (round(float(v)) for v in values)
+                max(0, min(255, i)) for i in (round(v) for v in values)
             )
         else:
             raise ValueError(f"invalid or unsupported color string: {s!r}")
