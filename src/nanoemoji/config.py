@@ -459,7 +459,7 @@ def load(
         color_format=color_format,
         upem=upem,
         width=width,
-        space_width=width if space_width == 0 else space_width,
+        space_width=space_width,
         ascender=ascender,
         descender=descender,
         linegap=linegap,

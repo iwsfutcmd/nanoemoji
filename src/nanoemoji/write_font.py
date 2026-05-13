@@ -197,7 +197,7 @@ def _ufo(config: FontConfig) -> ufoLib2.Font:
     ufo.newGlyph(".notdef")
     space = ufo.newGlyph(".space")
     space.unicodes = [0x0020]
-    space.width = config.space_width
+    space.width = config.space_width if config.space_width != 0 else config.width
     ufo.glyphOrder = [".notdef", ".space"]
 
     # Always the .notdef outline, even for things like a pure SVG font
